@@ -4,44 +4,47 @@ A robust, modular Backend API built with **NestJS** and **MongoDB** designed to 
 
 ## 🚀 Features
 
--   **Vendor Isolation:** Strict ownership checks to prevent cross-vendor data access.
--   **Product Management:**
-    -   Create, Read, Update, and Soft Delete products.
-    -   Vendor-scoped product listing with pagination.
--   **Authentication:** Secure JWT-based authentication for vendors.
--   **Validation:** Comprehensive DTO validation using `class-validator`.
--   **Documentation:** Auto-generated API documentation via Swagger.
--   **Architecture:** Modular and SOLID-compliant design with Service/Repository patterns.
--   **Security:** Helmet headers and compression enabled.
+- **Vendor Isolation:** Strict ownership checks to prevent cross-vendor data access.
+- **Product Management:**
+  - Create, Read, Update, and Soft Delete products.
+  - Vendor-scoped product listing with pagination.
+- **Authentication:** Secure JWT-based authentication for vendors.
+- **Validation:** Comprehensive DTO validation using `class-validator`.
+- **Documentation:** Auto-generated API documentation via Swagger.
+- **Architecture:** Modular and SOLID-compliant design with Service/Repository patterns.
+- **Security:** Helmet headers and compression enabled.
 
 ## 🛠️ Tech Stack
 
--   **Framework:** [NestJS](https://nestjs.com/)
--   **Database:** [MongoDB](https://www.mongodb.com/) (via Mongoose)
--   **Authentication:** Passport JWT
--   **Documentation:** Swagger / OpenAPI
--   **Containerization:** Docker & Docker Compose
+- **Framework:** [NestJS](https://nestjs.com/)
+- **Database:** [MongoDB](https://www.mongodb.com/) (via Mongoose)
+- **Authentication:** Passport JWT
+- **Documentation:** Swagger / OpenAPI
+- **Containerization:** Docker & Docker Compose
 
 ## 📋 Prerequisites
 
--   Node.js (v18 or later)
--   npm or yarn
+- Node.js (v18 or later)
+- npm or yarn
 
 ## ⚙️ Installation & Setup
 
 1.  **Clone the repository:**
+
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/mminuwaali/multivendor-product-system-backend.git
     cd nestjs-product-system
     ```
 
 2.  **Install dependencies:**
+
     ```bash
     npm install
     ```
 
 3.  **Environment Configuration:**
     Create a `.env` file in the root directory (or use the provided defaults for development).
+
     ```env
     PORT=3000
     MONGO_URI=mongodb://localhost:27017/nest-product-system
@@ -50,6 +53,7 @@ A robust, modular Backend API built with **NestJS** and **MongoDB** designed to 
     ```
 
 4.  **Run the Application:**
+
     ```bash
     # Development mode
     npm run start:dev
