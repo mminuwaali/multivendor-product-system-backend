@@ -19,6 +19,10 @@ async function bootstrap(): Promise<void> {
   // Security & Optimization
   app.use(helmet());
   app.use(compression());
+  app.enableCors({
+    origin: configService.get<string[]>('app.corsOrigins'),
+    credentials: true,
+  });
 
   // Validation
   app.useGlobalPipes(
