@@ -32,26 +32,25 @@ export class ProductService extends BasePaginationService {
     return this.productRepository.create(productData);
   }
 
-  async findAll(
-    vendorId: string,
-    query: IRawQuery,
-  ) {
+  async findAll(vendorId: string, query: IRawQuery) {
     const page = Number(query.page) || 1;
     const pageSize = Number(query.pageSize) || 10;
     const skip = (page - 1) * pageSize;
 
     // Start with strict vendor filter
     const baseFilter: mongoose.QueryFilter<Product> = { vendorId };
-    
+
     // Parse dynamic filters
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     const dynamicFilter: any = parseFilter<Product>(query);
 
     // Merge filters
-    const filter: mongoose.QueryFilter<Product> = { ...dynamicFilter, ...baseFilter };
+    const filter: mongoose.QueryFilter<Product> = {
+      ...dynamicFilter,
+      ...baseFilter,
+    };
 
     if (query.search) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       (filter as any).$or = [
         { title: { $regex: query.search, $options: 'i' } },
         { description: { $regex: query.search, $options: 'i' } },
@@ -60,7 +59,12 @@ export class ProductService extends BasePaginationService {
 
     const sort = parseSort(query.ordering);
 
-    const data = await this.productRepository.findAll(filter, skip, pageSize, sort);
+    const data = await this.productRepository.findAll(
+      filter,
+      skip,
+      pageSize,
+      sort,
+    );
     const total = await this.productRepository.count(filter);
 
     return this.paginate(data, total, page, pageSize);
@@ -96,33 +100,32 @@ export class ProductService extends BasePaginationService {
     return updated as Product;
   }
 
-  async findAllPublic(
-    query: IRawQuery,
-    vendorId?: string,
-  ) {
+  async findAllPublic(query: IRawQuery, vendorId?: string) {
     const page = Number(query.page) || 1;
     const pageSize = Number(query.pageSize) || 10;
     const skip = (page - 1) * pageSize;
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const filter = parseFilter<Product>(query) as any;
-    
+
     if (vendorId) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        filter.vendorId = vendorId;
+      filter.vendorId = vendorId;
     }
 
     if (query.search) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       filter.$or = [
         { title: { $regex: query.search, $options: 'i' } },
         { description: { $regex: query.search, $options: 'i' } },
       ];
     }
-    
+
     const sort = parseSort(query.ordering);
 
-    const data = await this.productRepository.findAll(filter, skip, pageSize, sort);
+    const data = await this.productRepository.findAll(
+      filter,
+      skip,
+      pageSize,
+      sort,
+    );
     const total = await this.productRepository.count(filter);
 
     return this.paginate(data, total, page, pageSize);
